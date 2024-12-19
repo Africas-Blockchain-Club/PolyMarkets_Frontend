@@ -12,7 +12,7 @@ import { Account } from "thirdweb/wallets";
 import { Skeleton } from "@/components/ui/skeleton";
 import EnterAmountModal from "./enterAmountModal";
 import { MarketDetailModal } from "./marketDetailsModal";
-import { Toast, ToastState } from "./Toast";
+import { ToastState } from "./Toast";
 
 const { chainId, rpc } = contractConfig;
 
