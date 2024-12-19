@@ -7,6 +7,13 @@ import { Market } from "@/lib/types";
 import { Topbar } from "./components/Topbar";
 import { useActiveAccount } from "thirdweb/react";
 import { Loader2 } from "lucide-react";
+import { Toast } from "./components/Toast";
+
+interface ToastState {
+  show: boolean;
+  message: string;
+  isSuccess: boolean;
+}
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -15,16 +22,39 @@ export default function Home() {
   const { readMarkets, createMarket } = useContext(PolyAppContext);
   const account = useActiveAccount();
 
+  const [toastState, setToastState] = useState<ToastState>({
+    show: false,
+    message: "",
+    isSuccess: false,
+  });
+
   const _createMarket = async (question: string, expiresAt: number) => {
     try {
       if (account) {
         const market = await createMarket(question, expiresAt, account);
         console.log(market);
         const _markets = await readMarkets();
+        setToastState({
+          show: true,
+          message: "Market created successfully",
+          isSuccess: true,
+        });
         setMarkets(_markets);
+        // Auto-hide toast after 3 seconds
+        setTimeout(() => {
+          setToastState((prev) => ({ ...prev, show: false }));
+        }, 3000);
       }
     } catch (error) {
-      alert(error instanceof Error ? error.message : "An error occurred");
+      setToastState({
+        show: true,
+        message: error instanceof Error ? error.message : "An error occurred",
+        isSuccess: false,
+      });
+      // Auto-hide toast after 3 seconds
+      setTimeout(() => {
+        setToastState((prev) => ({ ...prev, show: false }));
+      }, 3000);
     }
   };
 
@@ -83,6 +113,11 @@ export default function Home() {
           </div>
         )}
       </div>
+
+      {/* alert toast */}
+      {toastState.show && (
+        <Toast isSuccess={toastState.isSuccess} message={toastState.message} />
+      )}
     </main>
   );
 }
