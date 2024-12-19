@@ -7,13 +7,7 @@ import { Market } from "@/lib/types";
 import { Topbar } from "./components/Topbar";
 import { useActiveAccount } from "thirdweb/react";
 import { Loader2 } from "lucide-react";
-import { Toast } from "./components/Toast";
-
-interface ToastState {
-  show: boolean;
-  message: string;
-  isSuccess: boolean;
-}
+import { Toast, ToastState } from "./components/Toast";
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -108,7 +102,11 @@ export default function Home() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
             {filteredMarkets.map((market) => (
-              <MarketCard key={market.id} market={market} />
+              <MarketCard
+                key={market.id}
+                market={market}
+                setToastState={setToastState}
+              />
             ))}
           </div>
         )}

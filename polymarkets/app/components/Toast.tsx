@@ -1,3 +1,9 @@
+export interface ToastState {
+  show: boolean;
+  message: string;
+  isSuccess: boolean;
+}
+
 export const Toast = ({
   isSuccess,
   message,
