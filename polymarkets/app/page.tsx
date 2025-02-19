@@ -7,6 +7,7 @@ import { Market } from "@/lib/types";
 import { Topbar } from "./components/Topbar";
 import { useActiveAccount } from "thirdweb/react";
 import { Loader2 } from "lucide-react";
+import Carousel from "./components/Carousel";
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -53,6 +54,7 @@ export default function Home() {
     <main className="">
       <Topbar createMarket={_createMarket} />
       <div className="container mx-auto py-6 px-4">
+        <Carousel/>
         <CategoryScroll
           selectedCategory={selectedCategory}
           onSelectCategory={setSelectedCategory}

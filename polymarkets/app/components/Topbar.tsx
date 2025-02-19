@@ -20,7 +20,7 @@ export const Topbar = ({createMarket} : {createMarket: (question:string, expires
             >
               {isMenuOpen ? <X className="text-white" /> : <Menu className="text-white" />}
             </button>
-            <h1 className="text-xl font-bold">Polymarket</h1>
+            <h1 className="text-xl font-bold">UniMarkets</h1>
           </div>
 
           {/* Search for Desktop */}
